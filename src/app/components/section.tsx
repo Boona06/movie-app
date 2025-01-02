@@ -1,7 +1,7 @@
 "use client"
-import { Movie } from "../type";
+import { Movie } from "./type";
 import Card from "./card";
-import { Props } from "../type";
+import { Props } from "./type";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
@@ -42,7 +42,7 @@ export default function Section( {endpoint , title } : Props ) {
          </Link>
         </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-7">
-        {movie.map((movieItem) => (
+        {movie?.map((movieItem) => (
         <Card key={movieItem.id} movie={movieItem} vote_average={movieItem.vote_average} />
         ))}
       </div>

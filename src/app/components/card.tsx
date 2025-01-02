@@ -1,4 +1,4 @@
-import { Movie } from "../type";
+import { Movie } from "./type";
 
  type Props = {
   movie: Movie,

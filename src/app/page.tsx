@@ -1,6 +1,6 @@
 
 import Section from "./components/section";
-import { Props } from "./type";
+import { Props } from "./components/type";
 export default function Home(props:Props) {
   return (
    <div>
