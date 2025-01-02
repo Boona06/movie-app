@@ -1,12 +1,17 @@
 "use client"
 import { Movie } from "./type";
 import Card from "./card";
-import { Props } from "./type";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+export type Props = {
+  title: string ,
+  endpoint: string,
+  moreLink?: string
+}
 
-export default function Section( {endpoint , title } : Props ) {
+
+export default function Section( {endpoint , title, moreLink } : Props ) {
   const [loading , setLoading]=useState(true)
   const [movie, setMovie] = useState<Movie[]>([]);
   const options = {
@@ -21,27 +26,28 @@ export default function Section( {endpoint , title } : Props ) {
   useEffect(() => {
   const fetchMovie = async () => {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${endpoint}?language=en-US&page=1`,
+        `https://api.themoviedb.org/3/${endpoint}`,
         options
       );
       const resJson = await response.json();
       setMovie(resJson.results);
+      setLoading(false)
       console.log(resJson)
     };
-    setLoading(false)
+ 
     fetchMovie();
-  }, []); 
+  }, [endpoint]); 
 
   return (<>
     {loading && <div>Unshaad bnaa ho </div>}
-    {!loading && <div className="pl-7">
+    {!loading && <div className="pl-5 pr-5 lg:pl-20 lg:pr-20 md:pl-12 md:pr-12 ">
       <div className="flex justify-between">
-        <h2 className="font-bold pt-10">{title}</h2>
-        <Link href={`/${endpoint}`} >
-        <button className="font-bold pt-10">View all</button>
-         </Link>
+        <h2 className="font-bold pt-10 text-2xl">{title}</h2>
+       { moreLink &&  <Link href={`/${moreLink}`} >
+        <button className="font-bold pt-10">See more</button>
+         </Link>}
         </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-7">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-7 pb-14">
         {movie?.map((movieItem) => (
         <Card key={movieItem.id} movie={movieItem} vote_average={movieItem.vote_average} />
         ))}

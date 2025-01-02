@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname , useSearchParams , useRouter } from "next/navigation";
-import { URLSearchParams } from "url";
+
 export default function Pagenition({}){
 
 const pathname = usePathname();
@@ -14,9 +14,9 @@ const onChangePage = (newPage : number) => {
     const newUrl = pathname + '?' + newSearchParams.toString();
     router.push(newUrl);
 }
-return(<div className=" flex gap-10">
+return(<div className=" flex justify-end pr-20 gap-10">
     <div onClick={()=>onChangePage(1)}>1</div>
-    <div onClick={()=>onChangePage(50)}>10</div>
+    <div onClick={()=>onChangePage(10)}>10</div>
     <div onClick={()=>onChangePage(100)}>100</div>
 </div>);
 }

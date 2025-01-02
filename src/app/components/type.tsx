@@ -6,8 +6,3 @@ export type Movie = {
     poster_path:string,
     backdrop_path:string,
 }
-export type Props = {
-    movielist: Movie[]
-    title: string ,
-    endpoint: string,
-}

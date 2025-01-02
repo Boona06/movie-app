@@ -3,13 +3,9 @@ import { useEffect, useState } from "react";
 import { Movie } from "../components/type";
 import { useParams, useSearchParams } from "next/navigation";
 import Pagenition from "../components/pagenition";
-import Section from "../components/section";
+import Card from "../components/card";
 
-export type Params = {
-  category: string,
-};
-
-export default function Genre({ category }: Params) {
+export default function Genre() {
   const params = useParams();
   const searchParams = useSearchParams();
   const page = searchParams.get('page');
@@ -28,18 +24,17 @@ export default function Genre({ category }: Params) {
   useEffect(() => {
     const fetchMovies = async () => {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${category}?language=en-US&${page}`,
+        `https://api.themoviedb.org/3/movie/${params.genre}?language=en-US&page=${page}`,
         options
       );
       const resJson = await response.json();
       console.log(resJson)
       setMovies(resJson.results);
       setLoading(false);
-      console.log(category)
     };
 
     fetchMovies();
-  }, [params]);
+  }, [params.genre, page]);
 
   if (loading) {
     return <div>Unshaad bna</div>;
@@ -47,8 +42,13 @@ export default function Genre({ category }: Params) {
 
   return (
     <div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-7">
-      <Section title={category} endpoint={category} movielist={movies}/>
+      <div>
+      <p className="font-bold text-2xl pl-10 pt-16">{params.genre}</p>
+       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-7 p-8">
+              {movies?.map((movieItem) => (
+              <Card key={movieItem.id} movie={movieItem} vote_average={movieItem.vote_average} />
+              ))}
+            </div>
       </div>
       <Pagenition/>
     </div>

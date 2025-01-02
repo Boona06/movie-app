@@ -1,12 +1,12 @@
 
 import Section from "./components/section";
-import { Props } from "./components/type";
-export default function Home(props:Props) {
+
+export default function Home() {
   return (
    <div>
-    <Section title={"Upcoming"} endpoint={"upcoming"} movielist={props.movielist}/>
-    <Section title={"Popular"} endpoint={"popular"} movielist={props.movielist}/>
-    <Section title={"Top rated"} endpoint={"top_rated"} movielist={props.movielist}/>
+    <Section title={"Upcoming"} endpoint={"movie/upcoming?language=en-US&page=1"} moreLink="upcoming?language=en-US&page=1"/>
+    <Section title={"Popular"} endpoint={"movie/popular?language=en-US&page=1"} moreLink="popular?language=en-US&page=1" />
+    <Section title={"Top rated"} endpoint={"movie/top_rated?language=en-US&page=1"} moreLink="top_rated?language=en-US&page=1"  />
    </div>
   );
 }
