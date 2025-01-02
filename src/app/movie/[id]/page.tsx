@@ -18,12 +18,15 @@ export default async function MovieDetailPage({ params } : Props){
     const data = await response.json()
     const imgPath= data?.poster_path  ?? data?.backdrop_path 
     const genres=data.genres
+    const runtime = data.runtime
+    const hour = runtime /60 
+    const minut = runtime % 60
     console.log(data)
     return<div>
         <div className="flex justify-between p-6">
             <div>
             <p className="font-bold"> {data.title}</p>
-            <p>{data.release_date} · PG · 2h 40m </p>
+            <p>{data.release_date} · PG · {hour.toFixed(0)}h {minut}min</p>
             </div>
         <div className="flex gap-2 font-bold ">
         <svg width="19" height="20" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -32,11 +35,12 @@ export default async function MovieDetailPage({ params } : Props){
         </div>
         </div>
         <img className="p-4 -mt-3 " src={`https://image.tmdb.org/t/p/w500${imgPath}`}/>
-        <div>
-        <img className="p-8" src={`https://image.tmdb.org/t/p/w92${imgPath}`}/>
-         <p> {genres.map((genre : any) => {
-            <div>{genre}</div>
-         })}</p> 
+        <div className="flex ">
+             <img className="p-8" src={`https://image.tmdb.org/t/p/w92${imgPath}`}/>
+         <div>
+             <p> {genres.map((genre : any) => {<p>{genre}</p> })}</p> 
+             <p>{data.overview}</p>
+        </div>
         </div>
     </div>
 }
