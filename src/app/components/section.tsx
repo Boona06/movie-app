@@ -7,11 +7,12 @@ import Link from "next/link";
 export type Props = {
   title: string ,
   endpoint: string,
-  moreLink?: string
+  moreLink?: string,
+  number: number,
 }
 
 
-export default function Section( {endpoint , title, moreLink } : Props ) {
+export default function Section( {endpoint , title, moreLink , number } : Props ) {
   const [loading , setLoading]=useState(true)
   const [movie, setMovie] = useState<Movie[]>([]);
   const options = {
@@ -50,7 +51,7 @@ export default function Section( {endpoint , title, moreLink } : Props ) {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-7 pb-14">
         {movie?.map((movieItem) => (
         <Card key={movieItem.id} movie={movieItem} vote_average={movieItem.vote_average} />
-        ))}
+        )).slice(0 , number )}
       </div>
     </div>}
   </>
