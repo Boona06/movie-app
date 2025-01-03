@@ -38,7 +38,7 @@ export default async function MovieDetailPage({ params } : Props){
         <div className="flex ">
              <img className="p-8" src={`https://image.tmdb.org/t/p/w92${imgPath}`}/>
          <div>
-             <p> {genres.map((genre : any) => {<p>{genre}</p> })}</p> 
+             <p> {genres.map((genre : any) => {<p key={genres.id}>{genre.name},</p> })}</p> 
              <p>{data.overview}</p>
         </div>
         </div>
