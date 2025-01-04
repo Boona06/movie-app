@@ -5,12 +5,20 @@ import { useParams, useSearchParams } from "next/navigation";
 import Pagenition from "../components/pagenition";
 import Card from "../components/card";
 
+type PageInfo = {
+  totalPage: number ,
+  currentPage:number
+}
 export default function Genre() {
   const params = useParams();
   const searchParams = useSearchParams();
   const page = searchParams.get('page');
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [pageInfo , setPageinfo]=useState<PageInfo>({
+    totalPage : 0 ,
+    currentPage: 0,
+  })
 
   const options = {
     method: "GET",
@@ -30,6 +38,7 @@ export default function Genre() {
       const resJson = await response.json();
       console.log(resJson)
       setMovies(resJson.results);
+      setPageinfo( {currentPage :  Number(page) , totalPage : resJson.totalpages})
       setLoading(false);
     };
 
@@ -50,7 +59,7 @@ export default function Genre() {
               ))}
             </div>
       </div>
-      <Pagenition/>
+      <Pagenition pageInfo={pageInfo}/>
     </div>
   );
 }

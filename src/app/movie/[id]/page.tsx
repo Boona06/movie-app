@@ -55,7 +55,8 @@ export default async function MovieDetailPage({ params } : Props){
              <img className="p-8" src={`https://image.tmdb.org/t/p/w92${imgPath}`}/>
          <div>
              {genres.map((genre : any) => (
-             <span className=" rounded-lg border-solid border-[#E4E4E7] border-[1px] p-[1px] ml-3">{genre.name}</span> ))}
+                 <span className=" rounded-lg border-solid border-[#E4E4E7] border-[1px] p-[1px] ml-3">{genre.name}</span>
+              ))}
              <p className="pt-4">{data.overview}</p>
         </div>
         </div>
