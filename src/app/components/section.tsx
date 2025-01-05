@@ -3,16 +3,16 @@ import { Movie } from "./type";
 import Card from "./card";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export type Props = {
   title: string ,
   endpoint: string,
   moreLink?: string,
-  number: number,
 }
 
 
-export default function Section( {endpoint , title, moreLink , number } : Props ) {
+export default function Section( {endpoint , title, moreLink  } : Props ) {
   const [loading , setLoading]=useState(true)
   const [movie, setMovie] = useState<Movie[]>([]);
   const options = {
@@ -40,7 +40,8 @@ export default function Section( {endpoint , title, moreLink , number } : Props 
   }, [endpoint]); 
 
   return (<>
-    {loading && <div>Unshaad bnaa ho </div>}
+    {loading && <div className="flex gap-4 ">
+      <Skeleton className="h-[250px] w-[168px] rounded-xl " /></div>}
     {!loading && <div className="pl-5 pr-5 lg:pl-20 lg:pr-20 md:pl-12 md:pr-12 ">
       <div className="flex justify-between">
         <h2 className="font-bold pt-10 text-2xl">{title}</h2>
@@ -51,7 +52,7 @@ export default function Section( {endpoint , title, moreLink , number } : Props 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-7 pb-14">
         {movie?.map((movieItem) => (
         <Card key={movieItem.id} movie={movieItem} vote_average={movieItem.vote_average} />
-        )).slice(0 , number )}
+        )).slice(0 , 10 )}
       </div>
     </div>}
   </>

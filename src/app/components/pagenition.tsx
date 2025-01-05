@@ -1,6 +1,8 @@
 "use client";
 
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 type PageInfo = {
   currentPage: number;
@@ -44,18 +46,26 @@ export default function Pagenition({ pageInfo }: { pageInfo: PageInfo }) {
   const getPage = visitPage(pageInfo.currentPage);
 
   return (
-    <div className="flex justify-around pr-20 gap-2">
+    <div className="flex justify-end  pr-20 gap-2">
+      {pageInfo.currentPage > 1  && (
+        <div className="pt-1" onClick={() => onChangePage(pageInfo.currentPage - 1)}><IoIosArrowBack/></div>
+      )}
       {getPage.map((page) => (
         <div
           key={page}
           className={`cursor-pointer px-2 ${
-            pageInfo.currentPage === page ? "font-bold text-blue-500" : ""
+            pageInfo.currentPage === page ? "font-bold text-slate-500 border-solid border-2 border-[#E4E4E7] rounded-lg " : ""
           }`}
           onClick={() => onChangePage(page)}
         >
           {page}
         </div>
       ))}
+      <div>
+      {pageInfo.currentPage < 500  && (
+        <div className="pt-1" onClick={() => onChangePage(pageInfo.currentPage + 1)}><IoIosArrowForward/></div>
+      )}
+      </div>
     </div>
   );
 }

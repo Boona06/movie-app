@@ -4,6 +4,7 @@ import { Movie } from "../components/type";
 import { useParams, useSearchParams } from "next/navigation";
 import Pagenition from "../components/pagenition";
 import Card from "../components/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type PageInfo = {
   totalPage: number ,
@@ -46,7 +47,7 @@ export default function Genre() {
   }, [params.genre, page]);
 
   if (loading) {
-    return <div>Unshaad bna</div>;
+    return <div><Skeleton className="w-[160px] h-[300px] rounded-md" /></div>;
   }
 
   return (

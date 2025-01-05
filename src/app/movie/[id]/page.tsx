@@ -1,5 +1,4 @@
 import Section from "@/app/components/section";
-import Recommend from "./recommended/page";
 
 type Props = {
     params : {
@@ -38,8 +37,8 @@ export default async function MovieDetailPage({ params } : Props){
     const minut = runtime % 60
     console.log(credits)
     console.log(data)
-    return<div>
-        <div className="flex justify-between p-6">
+    return<div className="lg:pl-44 md:pl-24 ">
+        <div className="flex justify-between p-6 ">
             <div>
             <p className="font-bold"> {data.title}</p>
             <p>{data.release_date} · PG · {hour.toFixed(0)}h {minut}min</p>
@@ -50,38 +49,44 @@ export default async function MovieDetailPage({ params } : Props){
         </svg> {data.vote_average.toFixed(1)} <p className="text-[#71717A] font-normal"> / 10 </p>
         </div>
         </div>
-        <img className="p-4 -mt-3 " src={`https://image.tmdb.org/t/p/w500${imgPath}`}/>
+        <div className="flex justify-center">
+        <img className="p-8 hidden sm:hidden lg:block md:hidden" src={`https://image.tmdb.org/t/p/w500${imgPath}`}/>
+        <img className="p-8 " src={`https://image.tmdb.org/t/p/w500${imgPath}`}/>
+        </div>
         <div className="flex ">
-             <img className="p-8" src={`https://image.tmdb.org/t/p/w92${imgPath}`}/>
-         <div>
+             <img className="p-8 lg:hidden" src={`https://image.tmdb.org/t/p/w92${imgPath}`}/>
+         <div className="mt-7">
              {genres.map((genre : any) => (
-                 <span className=" rounded-lg border-solid border-[#E4E4E7] border-[1px] p-[1px] ml-3">{genre.name}</span>
+                 <span className=" rounded-lg border-solid border-[#E4E4E7] border-[1px] p-[1px] ml-8 md:ml-16 ">{genre.name}</span>
               ))}
-             <p className="pt-4">{data.overview}</p>
+             <p className="pt-4 lg:pl-16">{data.overview}</p>
         </div>
         </div>
-        <div className="p-8 ">
+        <div className="p-8 lg:ml-8 ">
             <div className="flex">
-            <p className="pt-3 font-bold"> Director </p>
+            <p className="pt-3 font-bold pr-14"> Director </p>
               {credits.crew
                 .filter((director : Director) => director.job == "Director")
                 .map((director : Director)=>
-                (<span className="pl-14 pt-3">{director.name}</span>) )}
+                (<span className="pl-4 pt-3">{director.name}</span>) )}
             </div>
+            <div className=" border-[2px] border-solid mt-4"></div>
             <div className="flex">
-            <p className="pt-3 font-bold"> Writers </p>
+            <p className="pt-3 font-bold pr-14"> Writers </p>
                 {credits.crew
                 .filter((Writers : Writers) => Writers.department == "Writing")
                 .map((Writers : Writers)=>
-                (<span className="pl-14 pt-3">{Writers.name} · </span>) )}
+                (<span className="pl-4 pt-3">{Writers.name} · </span>) )}
             </div>
+            <div className=" border-[2px] border-solid mt-4 "></div>
             <div className="flex">
-            <p className="pt-3 font-bold"> Director </p>
+            <p className="pt-3 font-bold pr-14"> Director </p>
                 {credits.cast.slice( 0 , 3).map((Stars : Stars)=>
-                (<span className="pl-14 pt-3">{Stars.name}</span>))}
+                (<span className="pl-4 pt-3">{Stars.name}</span>))}
             </div>
+            <div className=" border-[2px] border-solid mt-4 "></div>
            
         </div>
-        <Section number={4} title="More Like this" endpoint={`/movie/${params.id}/recommendations`}  moreLink={`movie/${params.id}/recommended`}/>
+        <Section title="More Like this" endpoint={`/movie/${params.id}/recommendations`}  moreLink={`movie/${params.id}/recommended`}/>
     </div>
 }

@@ -7,7 +7,7 @@ import { Movie } from "./type";
 }
 
 export default function Card({ movie , vote_average }: Props) {
-  const imgPath= movie.poster_path  ?? movie.backdrop_path 
+  const imgPath= movie.poster_path  ?? movie.backdrop_path ?? <img src="/movie.jpg" />
   return (
     <Link href={`/movie/${movie.id}`}>
     <div className="mt-10">
