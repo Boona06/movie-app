@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import Link from "next/link";
 
 type GenreType = {
     id : number ,
@@ -40,7 +41,10 @@ export default function FilterGenre(){
                 <div className="p-2 pl-5 pr-4 flex gap-2 border-solid border-2 border-gray-300 rounded-md"><IoIosArrowDown className="mt-1"/>Genre</div>
             </PopoverTrigger>
             <PopoverContent>
-                {genre.map((genre : GenreType)=><Badge className="ml-1" key={`genre-${genre.id}`}>{genre.name}<IoIosArrowForward/></Badge>)}
+              <h2 className="font-bold">Genres</h2>
+               <p>See lists of movies by genre</p>
+               <div className="border-solid border-[1px] border-gray-400 m-2"></div>
+               {genre.map((genre : GenreType)=><Link href={`/movie/${genre.id}`}><Badge className="ml-1" key={`genre-${genre.id}`}>{genre.name}<IoIosArrowForward/></Badge></Link>)}
             </PopoverContent>
         </Popover>
         </>

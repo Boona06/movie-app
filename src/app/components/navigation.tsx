@@ -1,7 +1,17 @@
+"use client"
 import { FaRegMoon } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
 import FilterGenre from "./Filtergenre";
+import { useEffect, useState } from "react";
 export default function Navigation(){
+  const [theme , setTheme]=useState("light")
+  useEffect(() => {
+    document.documentElement.classList.toggle(`dark`, theme === `dark`);
+}, [theme]);
+
+const toggleTheme = ()=> {
+    setTheme(theme === `light` ? `dark` : `light`);
+}
    
     return(
         <>
@@ -13,7 +23,7 @@ export default function Navigation(){
              <FilterGenre/>
              <div className="flex gap-4">
               <button className="border-4 border-solid border-[#18181B] rounded-lg p-3" ><IoIosSearch/></button>
-             <button className="border-4 border-solid border-[#18181B] rounded-lg p-3" >
+             <button onClick={toggleTheme} className="border-4 border-solid border-[#18181B] rounded-lg p-3" >
                <FaRegMoon />
                </button>
              </div>
