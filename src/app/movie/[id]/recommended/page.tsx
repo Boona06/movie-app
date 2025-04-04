@@ -1,13 +1,12 @@
-
 import Section from "@/app/components/section";
 
-type Props = {
-  params: {
-    id: string; // `string` байх ёстой
-  };
+interface Props {
+  params: Promise<{
+    id : string
+  }>;
 };
 
-export default async function MovieDetailPage({ params }: Props) {
+export default async function MovieDetailPage({ params }:Props) {
   const options = {
     method: "GET",
     headers: {
@@ -18,13 +17,13 @@ export default async function MovieDetailPage({ params }: Props) {
   };
 
   const movieDetailResponse = await fetch(
-    `https://api.themoviedb.org/3/movie/${params.id}/credits`,
+    `https://api.themoviedb.org/3/movie/${(await params).id}/credits`,
     options
   );
   const credits = await movieDetailResponse.json();
 
   const movieResponse = await fetch(
-    `https://api.themoviedb.org/3/movie/${params.id}?language=en-US`,
+    `https://api.themoviedb.org/3/movie/${(await params).id}?language=en-US`,
     options
   );
   const data = await movieResponse.json();
@@ -33,7 +32,8 @@ export default async function MovieDetailPage({ params }: Props) {
     <div>
       <h1>{data.title}</h1>
       <p>{data.overview}</p>
-      <Section title="More Like This" endpoint={`/movie/${params.id}/recommendations`} />
+      <Section title="More Like This" endpoint={`/movie/${(await params).id}/recommendations`} />
     </div>
   );
 }
+
